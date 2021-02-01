@@ -1,3 +1,8 @@
+using Application.Interfaces.Repositories;
+using AutoMapper;
+using CrossCuting;
+using Infrastructure.Data.Repositories;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -6,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +31,17 @@ namespace Presentation
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var systemSettings = new SystemSettings();
+            new ConfigureFromConfigurationOptions<SystemSettings>(Configuration.GetSection("SystemSettings")).Configure(systemSettings);
+            
+            services.AddSingleton(systemSettings);
+
             services.AddControllers();
+
+            var assembly = AppDomain.CurrentDomain.Load("Application");
+            services.AddMediatR(assembly);
+            services.AddScoped<ICityRepository, CityMongoRepository>();
+            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

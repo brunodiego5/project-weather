@@ -21,13 +21,13 @@ namespace Application.Querys.CityQuerys.CityGetListByName
             _mapper = mapper;
         }
 
-        public Task<IEnumerable<CityDto>> Handle(CityGetListByNameQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<CityDto>> Handle(CityGetListByNameQuery request, CancellationToken cancellationToken)
         {
-            var cities = _cityRepository.GetByName(request.Name);
+            var cities = await _cityRepository.GetByName(request.Name);
 
-            IEnumerable<CityDto> citiesDto = _mapper.Map<IEnumerable<CityDto>>(cities);
+            // IEnumerable<CityDto> citiesDto = 
 
-            return Task.FromResult(citiesDto);
+            return _mapper.Map<IEnumerable<CityDto>>(cities);
         }
     }
 }

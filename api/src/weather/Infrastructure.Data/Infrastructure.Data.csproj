@@ -8,4 +8,9 @@
     <PackageReference Include="MongoDB.Driver" Version="2.11.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Application\Application.csproj" />
+    <ProjectReference Include="..\CrossCuting\CrossCuting.csproj" />
+  </ItemGroup>
+
 </Project>
