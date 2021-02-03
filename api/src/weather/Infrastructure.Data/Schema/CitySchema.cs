@@ -12,19 +12,19 @@ namespace Infrastructure.Data.Schema
         [BsonId]
         public ObjectId _Id { get; set; }
 
-        [BsonElement("Id")]
+        [BsonElement("id")]
         public int Id { get; set; }
 
-        [BsonElement("Name")]
+        [BsonElement("name")]
         public string Name { get; set; }
 
-        [BsonElement("State")]
+        [BsonElement("state")]
         public string State { get; set; }
 
-        [BsonElement("Country")]
+        [BsonElement("country")]
         public string Country { get; set; }
 
-        [BsonElement("Coord")]
+        [BsonElement("coord")]
         public Coord Coord { get; set; }
 
     }
@@ -32,10 +32,10 @@ namespace Infrastructure.Data.Schema
     [BsonIgnoreExtraElements]
     public class Coord
     {
-        [BsonElement("Lon")]
+        [BsonElement("lon")]
         public Double Lon { get; set; }
 
-        [BsonElement("Lat")]
+        [BsonElement("lat")]
         public Double Lat { get; set; }
 
 

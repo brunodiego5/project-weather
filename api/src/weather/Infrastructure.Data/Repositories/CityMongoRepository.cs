@@ -41,7 +41,7 @@ namespace Infrastructure.Data.Repositories
         {
             //var filter = Builders<CitySchema>.Filter.
 
-            var citySchema = await _cityMongoRepository.Find("{name: /^"+ name + "/}").ToListAsync();
+            var citySchema = await _cityMongoRepository.Find("{name: /^"+ name + "/i}").ToListAsync();
 
             List<City> cities = new List<City>();
 

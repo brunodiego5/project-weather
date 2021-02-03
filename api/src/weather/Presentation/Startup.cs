@@ -1,4 +1,5 @@
 using Application.Interfaces.Repositories;
+using Application.Querys.Profiles;
 using AutoMapper;
 using CrossCuting;
 using Infrastructure.Data.Repositories;
@@ -15,6 +16,7 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Presentation
@@ -41,7 +43,8 @@ namespace Presentation
             var assembly = AppDomain.CurrentDomain.Load("Application");
             services.AddMediatR(assembly);
             services.AddScoped<ICityRepository, CityMongoRepository>();
-            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(
+                Assembly.GetAssembly(typeof(CityDtoProfile)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

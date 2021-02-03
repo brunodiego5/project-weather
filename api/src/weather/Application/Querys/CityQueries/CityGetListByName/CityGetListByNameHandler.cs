@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces.Repositories;
 using Application.Querys.Models;
 using AutoMapper;
+using Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -25,9 +26,7 @@ namespace Application.Querys.CityQuerys.CityGetListByName
         {
             var cities = await _cityRepository.GetByName(request.Name);
 
-            // IEnumerable<CityDto> citiesDto = 
-
-            return _mapper.Map<IEnumerable<CityDto>>(cities);
+            return _mapper.Map<IEnumerable<City>, IEnumerable<CityDto>>(cities);
         }
     }
 }
