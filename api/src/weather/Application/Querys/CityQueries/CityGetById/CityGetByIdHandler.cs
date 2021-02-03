@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces.Repositories;
-using Application.Querys.Models;
+using Application.Models;
 using AutoMapper;
+using Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -20,13 +21,11 @@ namespace Application.Querys.CityQuerys.CityGetById
             _mapper = mapper;
         }
 
-        public Task<CityDto> Handle(CityGetByIdQuery request, CancellationToken cancellationToken)
+        public async Task<CityDto> Handle(CityGetByIdQuery request, CancellationToken cancellationToken)
         {
-            var city = _cityRepository.GetById(request.Id);
+            var city = await _cityRepository.GetById(request.Id);
 
-            CityDto cityDto = _mapper.Map<CityDto>(city);
-
-            return Task.FromResult(cityDto);
+            return _mapper.Map<City, CityDto>(city);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Application.Querys.CityQuerys.CityGetListByName;
+﻿using Application.Querys.CityQuerys.CityGetById;
+using Application.Querys.CityQuerys.CityGetListByName;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -27,6 +28,17 @@ namespace Presentation.Controllers
         {
             CityGetListByNameQuery city = new CityGetListByNameQuery();
             city.Name = name;
+            var result = await _mediatorService.Send(city);
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetOne(int id)
+        {
+            CityGetByIdQuery city = new CityGetByIdQuery();
+            city.Id = id;
             var result = await _mediatorService.Send(city);
 
             return Ok(result);

@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces.Repositories;
+using AutoMapper;
 using CrossCuting;
 using Domain.Entities;
 using Infrastructure.Data.Schema;
@@ -14,46 +15,31 @@ namespace Infrastructure.Data.Repositories
     public class CityMongoRepository : ICityRepository
     {
         private readonly IMongoCollection<CitySchema> _cityMongoRepository;
+        private readonly IMapper _mapper;
 
-        public CityMongoRepository(SystemSettings systemSettings)
+        public CityMongoRepository(SystemSettings systemSettings, IMapper mapper)
         {
             IMongoClient client = new MongoClient(systemSettings.MongoDBSettings.ConnectionString);
 
             IMongoDatabase database = client.GetDatabase(systemSettings.MongoDBSettings.DatabaseName);
 
             _cityMongoRepository = database.GetCollection<CitySchema>("cities");
+
+            _mapper = mapper;
         }
 
         public async Task<City> GetById(int id)
         {
             var citySchema = await _cityMongoRepository.Find(new BsonDocument("id", id)).FirstOrDefaultAsync();
 
-            var city = new City();
-
-            city.Id = citySchema.Id;
-            city.Name = citySchema.Name;
-            city.Country = citySchema.Country;
-
-            return new City();
+            return _mapper.Map<CitySchema, City>(citySchema);
         }
 
         public async Task<IEnumerable<City>> GetByName(string name)
         {
-            //var filter = Builders<CitySchema>.Filter.
+            var citiesSchema = await _cityMongoRepository.Find("{name: /^"+ name + "/i}").ToListAsync();
 
-            var citySchema = await _cityMongoRepository.Find("{name: /^"+ name + "/i}").ToListAsync();
-
-            List<City> cities = new List<City>();
-
-            citySchema.ForEach(c => {
-                var city = new City();
-                city.Id = c.Id;
-                city.Name = c.Name;
-                city.Country = c.Country;
-                cities.Add(city);
-            });
-
-            return cities;
+            return _mapper.Map<IEnumerable<CitySchema>, IEnumerable<City>>(citiesSchema);
         }
     }
 }

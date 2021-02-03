@@ -1,7 +1,8 @@
 using Application.Interfaces.Repositories;
-using Application.Querys.Profiles;
+using Application.Profiles;
 using AutoMapper;
 using CrossCuting;
+using Infrastructure.Data.Profiles;
 using Infrastructure.Data.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -39,12 +40,14 @@ namespace Presentation
             services.AddSingleton(systemSettings);
 
             services.AddControllers();
+            services.AddSwaggerGen();
 
             var assembly = AppDomain.CurrentDomain.Load("Application");
             services.AddMediatR(assembly);
             services.AddScoped<ICityRepository, CityMongoRepository>();
             services.AddAutoMapper(
-                Assembly.GetAssembly(typeof(CityDtoProfile)));
+                Assembly.GetAssembly(typeof(CityDtoProfile)),
+                Assembly.GetAssembly(typeof(CitySchemaProfile)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +67,16 @@ namespace Presentation
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
         }
     }
