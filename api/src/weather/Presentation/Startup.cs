@@ -1,9 +1,12 @@
 using Application.Interfaces.Repositories;
+using Application.Interfaces.Services;
 using Application.Profiles;
 using AutoMapper;
 using CrossCuting;
 using Infrastructure.Data.Profiles;
 using Infrastructure.Data.Repositories;
+using Infrastructure.Service.Contracts;
+using Infrastructure.Service.ServiceHandlers;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -48,6 +51,7 @@ namespace Presentation
             services.AddAutoMapper(
                 Assembly.GetAssembly(typeof(CityDtoProfile)),
                 Assembly.GetAssembly(typeof(CitySchemaProfile)));
+            services.AddHttpClient<IWeatherServiceClient<GetWeatherResponse>, OpenWeatherMapServiceClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
