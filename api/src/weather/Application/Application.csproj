@@ -6,8 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Commands\" />
-    <Folder Include="Querys\CityQueries\WeatherGetByGeo\" />
-    <Folder Include="Querys\CityQueries\WeatherGetByCity\" />
   </ItemGroup>
 
   <ItemGroup>

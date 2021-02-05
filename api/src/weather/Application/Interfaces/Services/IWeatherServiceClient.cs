@@ -1,14 +1,15 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Interfaces.Services
 {
-    public interface IWeatherServiceClient<Response>
+    public interface IWeatherServiceClient
     {
-        Task<Response> GetWeatherByCityName(string name);
+        Task<Weather> GetWeatherByCityName(string name);
 
-        Task<Response> GetWeatherByGeo(Double lat, Double lon);
+        Task<Weather> GetWeatherByGeo(Double lat, Double lon);
     }
 }

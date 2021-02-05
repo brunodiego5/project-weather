@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using Application.Querys.CityQueries.WeatherGetByCity;
+using Application.Querys.CityQueries.WeatherGetByGeo;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -21,23 +23,24 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        [Route("")]
-        public async Task<IActionResult> GetByCity(String name)
+        [Route("/city")]
+        public async Task<IActionResult> GetByCity([FromQuery] String name)
         {
-            CityGetListByNameQuery city = new CityGetListByNameQuery();
-            city.Name = name;
-            var result = await _mediatorService.Send(city);
+            WeatherGetByCityQuery weather = new WeatherGetByCityQuery();
+            weather.City = name;
+            var result = await _mediatorService.Send(weather);
 
             return Ok(result);
         }
 
         [HttpGet]
-        [Route("{id}")]
-        public async Task<IActionResult> GetByGeo(Double lat, Double lon)
+        [Route("/geo")]
+        public async Task<IActionResult> GetByGeo([FromQuery] Double lat, [FromQuery] Double lon)
         {
-            CityGetByIdQuery city = new CityGetByIdQuery();
-            city.Id = id;
-            var result = await _mediatorService.Send(city);
+            WeatherGetByGeoQuery weather = new WeatherGetByGeoQuery();
+            weather.Lat = lat;
+            weather.Lon = lon;
+            var result = await _mediatorService.Send(weather);
 
             return Ok(result);
         }

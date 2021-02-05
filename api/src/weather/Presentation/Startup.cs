@@ -6,6 +6,7 @@ using CrossCuting;
 using Infrastructure.Data.Profiles;
 using Infrastructure.Data.Repositories;
 using Infrastructure.Service.Contracts;
+using Infrastructure.Service.Profiles;
 using Infrastructure.Service.ServiceHandlers;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -48,10 +49,13 @@ namespace Presentation
             var assembly = AppDomain.CurrentDomain.Load("Application");
             services.AddMediatR(assembly);
             services.AddScoped<ICityRepository, CityMongoRepository>();
+            //services.AddScoped<IWeatherServiceClient, OpenWeatherMapServiceClient>();
             services.AddAutoMapper(
                 Assembly.GetAssembly(typeof(CityDtoProfile)),
-                Assembly.GetAssembly(typeof(CitySchemaProfile)));
-            services.AddHttpClient<IWeatherServiceClient<GetWeatherResponse>, OpenWeatherMapServiceClient>();
+                Assembly.GetAssembly(typeof(CitySchemaProfile)),
+                Assembly.GetAssembly(typeof(WeatherDtoProfile)),
+                Assembly.GetAssembly(typeof(GetWeatherResponseProfile)));
+            services.AddHttpClient<IWeatherServiceClient, OpenWeatherMapServiceClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
