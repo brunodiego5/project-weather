@@ -16,6 +16,6 @@ namespace Application.Models
 
         public String Currently { get; set; }
 
-        public Double Date { get; set; }
+        public int Date { get; set; }
     }
 }

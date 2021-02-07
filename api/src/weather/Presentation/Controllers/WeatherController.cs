@@ -1,4 +1,5 @@
-﻿using Application.Querys.CityQueries.WeatherGetByCity;
+﻿using Application.Models;
+using Application.Querys.CityQueries.WeatherGetByCity;
 using Application.Querys.CityQueries.WeatherGetByGeo;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,7 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        [Route("/city")]
+        [Route("bycity")]
         public async Task<IActionResult> GetByCity([FromQuery] String name)
         {
             WeatherGetByCityQuery weather = new WeatherGetByCityQuery();
@@ -34,7 +35,7 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        [Route("/geo")]
+        [Route("bygeo")]
         public async Task<IActionResult> GetByGeo([FromQuery] Double lat, [FromQuery] Double lon)
         {
             WeatherGetByGeoQuery weather = new WeatherGetByGeoQuery();

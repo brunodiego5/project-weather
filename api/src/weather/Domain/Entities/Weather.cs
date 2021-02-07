@@ -14,7 +14,7 @@ namespace Domain.Entities
 
         public string Currently { get; set; }
 
-        public DateTime Date { get; set; }
+        public int Date { get; set; }
 
 
     }
