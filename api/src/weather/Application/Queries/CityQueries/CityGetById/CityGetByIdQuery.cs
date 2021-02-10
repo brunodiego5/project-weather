@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Application.Querys.CityQuerys.CityGetById
+namespace Application.Queries.CityQuerys.CityGetById
 {
     public class CityGetByIdQuery: IRequest<CityDto>
     {

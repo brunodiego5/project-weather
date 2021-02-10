@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Application.Querys.CityQuerys.CityGetListByName
+namespace Application.Queries.CityQuerys.CityGetListByName
 {
     public class CityGetListByNameHandler : IRequestHandler<CityGetListByNameQuery, IEnumerable<CityDto>>
     {

@@ -10,24 +10,24 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Application.Querys.CityQueries.WeatherGetByGeo
+namespace Application.Queries.WeatherQueries.WeatherGetByCity
 {
-    public class WeatherGetByGeoHandler : IRequestHandler<WeatherGetByGeoQuery, WeatherDto>
+    public class WeatherGetByCityHandler : IRequestHandler<WeatherGetByCityQuery, WeatherDto>
     {
         private readonly IWeatherServiceClient _weatherServiceClient;
 
         private readonly IMapper _mapper;
 
-        public WeatherGetByGeoHandler(IWeatherServiceClient weatherServiceClient, IMapper mapper)
+        public WeatherGetByCityHandler(IWeatherServiceClient weatherServiceClient, IMapper mapper)
         {
             _weatherServiceClient = weatherServiceClient;
 
             _mapper = mapper;
         }
 
-        public async Task<WeatherDto> Handle(WeatherGetByGeoQuery request, CancellationToken cancellationToken)
+        public async Task<WeatherDto> Handle(WeatherGetByCityQuery request, CancellationToken cancellationToken)
         {
-            var weather = await _weatherServiceClient.GetWeatherByGeo(request.Lat, request.Lon);
+            var weather = await _weatherServiceClient.GetWeatherByCityName(request.City);
 
             return _mapper.Map<Weather, WeatherDto>(weather);
         }

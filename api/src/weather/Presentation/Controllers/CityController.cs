@@ -1,5 +1,5 @@
-﻿using Application.Querys.CityQuerys.CityGetById;
-using Application.Querys.CityQuerys.CityGetListByName;
+﻿using Application.Queries.CityQuerys.CityGetById;
+using Application.Queries.CityQuerys.CityGetListByName;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

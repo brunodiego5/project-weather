@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Querys.CityQueries.WeatherGetByCity
+namespace Application.Queries.WeatherQueries.WeatherGetByCity
 {
     public class WeatherGetByCityQuery: IRequest<WeatherDto>
     {

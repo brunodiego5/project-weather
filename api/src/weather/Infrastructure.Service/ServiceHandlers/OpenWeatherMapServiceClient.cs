@@ -33,13 +33,6 @@ namespace Infrastructure.Service.ServiceHandlers
 
         public async Task<Weather> GetWeatherByCityName(string name)
         {
-            //var response2 = await _httpClient.GetAsync(
-            //    String.Format("http://api.openweathermap.org/data/2.5/weather?q={0}&appid=92e34d7b6a1f0f906b27622b1b2cdddd&units=metric&lang=pt_br", name));
-
-            //var conteudo = await response2.Content.ReadAsStringAsync();
-            //var resultado = JsonSerializer
-            //    .Deserialize<GetWeatherResponse>(conteudo, jsonOptions);
-
             var responseStream = await _httpClient.GetStreamAsync(
                 String.Format("http://api.openweathermap.org/data/2.5/weather?q={0}&appid=92e34d7b6a1f0f906b27622b1b2cdddd&units=metric&lang=pt_br", name));
             var response = await JsonSerializer.DeserializeAsync<GetWeatherResponse>(responseStream, _jsonOptions);

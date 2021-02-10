@@ -1,6 +1,6 @@
 ﻿using Application.Models;
-using Application.Querys.CityQueries.WeatherGetByCity;
-using Application.Querys.CityQueries.WeatherGetByGeo;
+using Application.Queries.WeatherQueries.WeatherGetByCity;
+using Application.Queries.WeatherQueries.WeatherGetByGeo;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
